@@ -1,0 +1,17 @@
+#!/command/with-contenv bash
+# SPDX-FileCopyrightText: © 2025 Nfrastack <code@nfrastack.com>
+#
+# SPDX-License-Identifier: MIT
+
+source /container/base/functions/container/init
+set -a
+prepare_service 20-mas
+set +a
+SERVICE_NAME="mas"
+
+if [ ! -f "/container/state/restart" ] ; then
+    mas_bootstrap_filesystem
+    mas_generate_configuration
+fi
+
+liftoff

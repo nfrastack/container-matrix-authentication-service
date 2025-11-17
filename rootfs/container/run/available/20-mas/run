@@ -1,0 +1,20 @@
+#!/command/with-contenv bash
+# SPDX-FileCopyrightText: © 2025 Nfrastack <code@nfrastack.com>
+#
+# SPDX-License-Identifier: MIT
+
+source /container/base/functions/container/init
+prepare_service 20-mas
+SERVICE_NAME="matrix-autentication-service"
+
+check_container_initialized
+check_service_initialized init
+
+liftoff
+
+print_start "Starting Matrix Autentication Service $(mas-cli -V)"
+cd /container/data/mas/
+exec sudo -u "${MAS_USER}" \
+                            mas-cli \
+                                -c ${CONFIG_PATH}/${CONFIG_FILE} \
+                                ${MAS_ARGS} server
