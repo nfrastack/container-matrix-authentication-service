@@ -1,0 +1,82 @@
+services:
+  mas-app:
+    image: docker.io/nfrastack/matrix-authentication-service:latest
+    container_name: mas-app
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.mas.rule=Host(`mas.example.com`)
+      - traefik.http.services.mas.loadbalancer.server.port=8080
+    volumes:
+      - ./logs:/logs
+      - ./config:/config
+    environment:
+      - TIMEZONE=America/Vancouver
+
+      - MAIL_TYPE=none
+      - MAIL_FROM=none@none.com
+      - MATRIX_HOMESERVER_TYPE=synapse
+      - MATRIX_HOMESERVER=synapse:8008
+      - MATRIX_HOMESERVER_ENDPOINT=http://synapse:8008
+      - MATRIX_HOMESERVER_SECRET=your_shared_secret_here
+
+      - DB_USER=mas
+      - DB_PASS=mas
+      - DB_HOST=mas-db
+      - DB_NAME=mas
+      - DB_PORT=5432
+
+      # needs to be a ulid https://www.ulidtools.com/
+      - PROVIDER_ID=ABCDEFGHIJKLMNOP
+      - PROVIDER_HUMAN_NAME=LLNG
+      - PROVIDER_ISSUER=https://auth.example.com
+      - PROVIDER_CLIENT_ID=mas
+      - PROVIDER_CLIENT_SECRET=mas1234
+      - PROVIDER_TOKEN_ENDPOINT_AUTH_METHOD=client_secret_basic
+      - PROVIDER_SCOPE=openid profile email
+      - PROVIDER_DISCOVERY_MODE=insecure
+    networks:
+      - proxy
+      - services
+    restart: always
+
+  mas-db:
+    image: docker.io/nfrastack/postgres:17
+    container_name: mas-db
+    volumes:
+      - ./db/postgresql:/var/lib/postgresql
+    environment:
+      - TIMEZONE=America/Vancouver
+
+      - SUPERUSER_PASS=password
+      - DB_NAME=mas
+      - DB_USER=mas
+      - DB_PASS=mas
+    networks:
+      - services
+    restart: always
+
+  mas-db-backup:
+    image: docker.io/tiredofit/db-backup
+    container_name: mas-db-backup
+    volumes:
+      - ./dbbackup:/backup
+    environment:
+      - TIMEZONE=America/Vancouver
+
+      - DB01_HOST=mas-db
+      - DB01_TYPE=postgres
+      - DB01_NAME=mas
+      - DB01_USER=mas
+      - DB01_PASS=password
+      - DB01_DUMP_FREQ=1440
+      - DB01_DUMP_BEGIN=0000
+      - DB01_CLEANUP_TIME=8640
+    networks:
+      - services
+    restart: always
+
+networks:
+  proxy:
+    external: true
+  services:
+    external: true
