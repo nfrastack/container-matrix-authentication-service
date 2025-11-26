@@ -18,7 +18,7 @@ LABEL \
         org.opencontainers.image.licenses="MIT"
 
 ARG \
-    MAS_VERSION="v1.6.0" \
+    MAS_VERSION="v1.7.0" \
     MAS_REPO_URL="https://github.com/element-hq/matrix-authentication-service"
 
 COPY CHANGELOG.md /usr/src/container/CHANGELOG.md
