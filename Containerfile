@@ -56,7 +56,7 @@ RUN echo "" && \
                     MAS_BUILD_DEPS \
                     MAS_RUN_DEPS \
                     && \
-    package build go && \
+    package build go buildtime && \
     package build yq && \
     \
     mkdir /usr/src/mas && \
