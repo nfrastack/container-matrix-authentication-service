@@ -9,7 +9,7 @@ mas_bootstrap_filesystem() {
                 ${LOG_PATH}" \
                 "${MAS_USER}":"${MAS_GROUP}" 755
 
-    create_logrotate mas "${LOG_PATH%/}"/*.log ${MAS_USER} "${MAS_GROUP}"
+    call create_logrotate mas "${LOG_PATH%/}"/*.log ${MAS_USER} "${MAS_GROUP}"
 }
 
 mas_generate_configuration() {

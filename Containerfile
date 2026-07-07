@@ -18,7 +18,7 @@ LABEL \
         org.opencontainers.image.licenses="MIT"
 
 ARG \
-    MAS_VERSION="v1.15.0" \
+    MAS_VERSION="v1.19.0" \
     MAS_REPO_URL="https://github.com/element-hq/matrix-authentication-service"
 
 COPY CHANGELOG.md /usr/src/container/CHANGELOG.md
@@ -30,11 +30,6 @@ ENV \
     IMAGE_REPO_URL="https://github.com/nfrastack/container-matrix-authentication-service/"
 
 RUN echo "" && \
-    BUILD_ENV=" \
-                NGINX_SITE_ENABLED=matrix-authentication-service \
-                NGINX_ENABLE_CREATE_SAMPLE_HTML=FALSE \
-              " \
-              && \
     MAS_BUILD_DEPS_ALPINE=" \
                                 #$nodejs \
                                 #$npm \
@@ -70,4 +65,3 @@ RUN echo "" && \
     package cleanup
 
 COPY rootfs /
-

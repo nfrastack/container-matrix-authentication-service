@@ -40,7 +40,7 @@ services:
     restart: always
 
   mas-db:
-    image: docker.io/nfrastack/postgres:17
+    image: docker.io/nfrastack/postgres:18
     container_name: mas-db
     volumes:
       - ./db/postgresql:/var/lib/postgresql

@@ -9,7 +9,7 @@ prepare_service 20-mas
 set +a
 SERVICE_NAME="mas"
 
-if [ ! -f "/container/state/restart" ] ; then
+if check_container_restarted; then
     mas_bootstrap_filesystem
     mas_generate_configuration
 fi
