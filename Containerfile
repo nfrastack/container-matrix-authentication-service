@@ -26,16 +26,16 @@ COPY LICENSE /usr/src/container/LICENSE
 COPY README.md /usr/src/container/README.md
 
 ENV \
+    IMAGE_NAME="nfrastack/matrix-authentication-service" \
+    IMAGE_REPO_URL="https://github.com/nfrastack/container-matrix-authentication-service/"
+
+RUN echo "" && \
     BUILD_ENV=" \
                 ENABLE_NGINX=FALSE \
                 NGINX_SITE_ENABLED=matrix_authentication_service \
                 NGINX_ENABLE_CREATE_SAMPLE_HTML=FALSE \
               " \
               && \
-    IMAGE_NAME="nfrastack/matrix-authentication-service" \
-    IMAGE_REPO_URL="https://github.com/nfrastack/container-matrix-authentication-service/"
-
-RUN echo "" && \
     MAS_BUILD_DEPS_ALPINE=" \
                                 #$nodejs \
                                 #$npm \
