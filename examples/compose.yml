@@ -56,7 +56,7 @@ services:
     restart: always
 
   mas-db-backup:
-    image: docker.io/tiredofit/db-backup
+    image: docker.io/nfrastack/db-backup
     container_name: mas-db-backup
     volumes:
       - ./dbbackup:/backup

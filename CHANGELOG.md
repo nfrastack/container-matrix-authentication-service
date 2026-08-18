@@ -1,4 +1,4 @@
-## 1.0.0pre 2026-07-21 <code at nfrastack dot com>
+## 1.0.0pre 2026-08-18 <code at nfrastack dot com>
 
    ### Added
-      - MAS 1.21.0
+      - MAS 1.23.0
