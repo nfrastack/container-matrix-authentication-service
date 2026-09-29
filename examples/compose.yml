@@ -62,6 +62,9 @@ services:
       - ./dbbackup:/backup
     environment:
       - TIMEZONE=America/Vancouver
+      - CONTAINER_NAME=mas-db-backup
+
+      - STATS_ENABLED=TRUE
 
       - DB01_HOST=mas-db
       - DB01_TYPE=postgres
